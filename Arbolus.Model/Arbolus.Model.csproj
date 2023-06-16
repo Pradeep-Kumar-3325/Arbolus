@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <Folder Include="Enums\" />
-    <Folder Include="Interface\" />
+    <Folder Include="Base\" />
   </ItemGroup>
 
 </Project>

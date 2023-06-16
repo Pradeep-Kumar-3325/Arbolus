@@ -1,6 +1,9 @@
-﻿namespace Arbolus.Model.Concrete
+﻿using System.Collections.Generic;
+
+namespace Arbolus.Model.Concrete
 {
-    class Class1
+    public class Rate
     {
+        public Dictionary<string,int> AUD { get; set; }
     }
 }

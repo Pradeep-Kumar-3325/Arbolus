@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 
 namespace Arbolus.Model.Interface
 {
-    public interface IClientData
+    public interface IData<T>
     {
-        Task<List<Client>> Get();
+        Task<List<T>> Get(string dataType);
     }
 }

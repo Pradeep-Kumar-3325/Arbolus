@@ -4,4 +4,9 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Arbolus.Data\Arbolus.Data.csproj" />
+    <ProjectReference Include="..\Arbolus.Model\Arbolus.Model.csproj" />
+  </ItemGroup>
+
 </Project>

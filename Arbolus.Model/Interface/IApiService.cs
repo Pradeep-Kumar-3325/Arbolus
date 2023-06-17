@@ -7,7 +7,7 @@ namespace Arbolus.Model.Interface
     {
         string SvcUrl { get; set; }
 
-        int RequestUri { get; set; }
+        string RequestUri { get; set; }
 
         Task<String> Get();
     }

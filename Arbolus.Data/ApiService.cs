@@ -12,12 +12,31 @@ namespace Arbolus.Data
     {
         private HttpClient httpClient;
 
-        public string SvcUrl { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public int RequestUri { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string SvcUrl { get; set; }
 
-        public Task<string> Get()
+        public string RequestUri { get; set; }
+
+        private HttpClient client
         {
-            throw new NotImplementedException();
+            get
+            {
+                this.httpClient = new HttpClient();
+                this.httpClient.BaseAddress = new Uri(this.SvcUrl);
+                return this.client;
+            }
+        }
+
+        public async Task<string> Get()
+        {
+            try
+            {
+                var result = await this.httpClient.GetAsync(this.RequestUri);
+                return result.Content.ReadAsStringAsync().Result;
+            }
+            catch
+            {
+                throw;
+            }
         }
         
     }

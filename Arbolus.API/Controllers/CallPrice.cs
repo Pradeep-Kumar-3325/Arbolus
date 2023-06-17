@@ -15,9 +15,9 @@ namespace Arbolus.API.Controllers
     public class CallPrice : ControllerBase
     {
         private readonly ILogger<CallPrice> logger;
-        private readonly ICallService<List<CallPriceDetails>> callService;
+        private readonly ICallService callService;
 
-        public CallPrice(ILogger<CallPrice> logger, ICallService<List<CallPriceDetails>> callService)
+        public CallPrice(ILogger<CallPrice> logger, ICallService callService)
         {
             this.logger = logger;
             this.callService = callService;
@@ -33,8 +33,8 @@ namespace Arbolus.API.Controllers
             }
             catch (Exception ex)
             {
-                this.logger.LogError($"Error in CallPrice :- {ex}");
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                this.logger.LogError($"Error in Get :- {ex}");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error while processing data!");
             }
         }
 
@@ -47,12 +47,12 @@ namespace Arbolus.API.Controllers
                 if (string.IsNullOrEmpty(expert) || string.IsNullOrEmpty(client))
                     return BadRequest("Please provide either expert or client");
 
-                return this.Ok(await this.callService.GetPriceByName());
+                return this.Ok(await this.callService.GetPriceByName(expert, client));
             }
             catch(Exception ex)
             {
-                this.logger.LogError($"Error in CallPrice :- {ex} for expert { expert } and client {client}");
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                this.logger.LogError($"Error in GetByName :- {ex} for expert { expert } and client {client}");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error while processing data!");
             }
         }
     }

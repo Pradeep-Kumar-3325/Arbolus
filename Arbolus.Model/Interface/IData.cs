@@ -6,6 +6,6 @@ namespace Arbolus.Model.Interface
 {
     public interface IData<T>
     {
-        Task<List<T>> Get(string dataType);
+        Task<T> Get(string dataType);
     }
 }

@@ -22,7 +22,7 @@ namespace Arbolus.Data
             {
                 this.httpClient = new HttpClient();
                 this.httpClient.BaseAddress = new Uri(this.SvcUrl);
-                return this.client;
+                return this.httpClient;
             }
         }
 
@@ -30,7 +30,7 @@ namespace Arbolus.Data
         {
             try
             {
-                var result = await this.httpClient.GetAsync(this.RequestUri);
+                var result = await this.client.GetAsync(this.RequestUri);
                 return result.Content.ReadAsStringAsync().Result;
             }
             catch

@@ -4,7 +4,7 @@ namespace Arbolus.Model.Concrete
 {
     public class Client
     {
-        public int Name { get; set; }
+        public string Name { get; set; }
 
         public List<string> Discounts { get; set; }
     }

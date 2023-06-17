@@ -1,5 +1,6 @@
 ﻿using Arbolus.Model;
 using Arbolus.Model.Concrete;
+using Arbolus.Model.DTO;
 using Arbolus.Model.Interface;
 using Arbolus.Service.Interface;
 using Microsoft.Extensions.Logging;
@@ -15,11 +16,11 @@ namespace Arbolus.Service
 
         private readonly IRateData rateData;
 
-        private readonly IData<Expert> expertDetails;
+        private readonly IData<ExpertData> expertDetails;
 
-        private readonly IData<Client> clientDetails;
+        private readonly IData<ClientData> clientDetails;
 
-        public CallService(ILogger<CallService> logger, IRateData rateData, IData<Expert> expertDetails, IData<Client> clientDetails)
+        public CallService(ILogger<CallService> logger, IRateData rateData, IData<ExpertData> expertDetails, IData<ClientData> clientDetails)
         {
             this.logger = logger;
             this.rateData = rateData;
@@ -31,7 +32,11 @@ namespace Arbolus.Service
         {
             try
             {
-                throw new System.NotImplementedException();
+                var experts = await this.expertDetails.Get("Expert");
+                var clients = await this.clientDetails.Get("Client");
+                var rates = await this.rateData.Get();
+
+                return new List<CallPriceDetails>();
             }
             catch (Exception ex)
             {

@@ -11,7 +11,7 @@ namespace Arbolus.Data
 {
     public class Data<T> : IData<T>
     {
-        private List<T> clients;
+        private T data;
 
         private readonly ILogger<Data<T>> logger;
 
@@ -26,15 +26,15 @@ namespace Arbolus.Data
             this.configuration = configuration;
         }
 
-        public async Task<List<T>> Get(string dataType)
+        public async Task<T> Get(string dataType)
         {
             try
             {
                 this.apiService.SvcUrl = this.configuration["EndPoints:BaseUrl"];
                 this.apiService.RequestUri = this.configuration[$"EndPoints:{dataType}"];
                 var result = await this.apiService.Get();
-                clients = JsonConvert.DeserializeObject<List<T>>(result);
-                return clients;
+                data = JsonConvert.DeserializeObject<T>(result);
+                return data;
             }
             catch (Exception ex)
             {

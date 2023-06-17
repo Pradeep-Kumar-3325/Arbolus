@@ -4,6 +4,6 @@ namespace Arbolus.Model.Concrete
 {
     public class Rate
     {
-        public Dictionary<string,int> AUD { get; set; }
+        public Dictionary<string,decimal> AUD { get; set; }
     }
 }

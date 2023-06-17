@@ -2,7 +2,7 @@
 {
     public class Call
     {
-        public string Name { get; set; }
+        public string client { get; set; }
 
         public int Duration { get; set; }
 

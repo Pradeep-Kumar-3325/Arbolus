@@ -36,6 +36,10 @@ namespace Arbolus.Service.Test
             callService = new CallService(logger.Object, rateData.Object, experts.Object, clients.Object, config.Object);
         }
 
+        /*
+         * The below Test Method cover 90% of all branches and line of code 
+         * because created all possible data in setupData Method 
+         */
         [Fact]
         public async Task GetPrices_Return_CallPriceList_When_Return_Data_From_Firebase()
         {
@@ -81,6 +85,7 @@ namespace Arbolus.Service.Test
 
         private void setupData()
         {
+            // Setup Rate
             Rate rate = new Rate();
             rate.AUD = new Dictionary<string, decimal>();
             rate.AUD.Add("USD", 0.86m);
@@ -91,6 +96,7 @@ namespace Arbolus.Service.Test
             rateData.Setup(x => x.Get())
                 .ReturnsAsync(rate);
 
+            // Setup Expert
             ExpertData expertData = new ExpertData();
             expertData.Experts = new List<Expert>();
             Expert expert = new Expert();
@@ -117,6 +123,7 @@ namespace Arbolus.Service.Test
             expert.hourlyRate = 100;
             expert.currency = "AUD";
             expertData.Experts.Add(expert);
+
             //Add Another Expert which is not in client list
             expert = new Expert();
             expert.Calls = new List<Call>();
@@ -134,6 +141,7 @@ namespace Arbolus.Service.Test
             experts.Setup(x => x.Get("Expert"))
                 .ReturnsAsync(expertData);
 
+            // Setup Client
             ClientData clientData = new ClientData();
             clientData.Clients = new List<Client>();
             Client client = new Client();
@@ -141,6 +149,8 @@ namespace Arbolus.Service.Test
             client.Discounts.Add("Follow");
             client.Name = "client1";
             clientData.Clients.Add(client);
+
+            //Add Another Client which is not in expert list
             client = new Client();
             client.Name = "client3";
             clientData.Clients.Add(client);

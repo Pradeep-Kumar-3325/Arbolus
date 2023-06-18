@@ -11,7 +11,7 @@ namespace Arbolus.Data
 {
     public class Data<T> : IData<T>
     {
-        private T data;
+        public static T data;
 
         private readonly ILogger<Data<T>> logger;
 

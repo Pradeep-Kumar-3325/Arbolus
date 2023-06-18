@@ -11,7 +11,7 @@ namespace Arbolus.Data
 {
     public class RateData : IRateData
     {
-        private Rate rates;
+        public static Rate rates;
 
         private readonly ILogger<RateData> logger;
 

@@ -37,23 +37,5 @@ namespace Arbolus.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error while processing data!");
             }
         }
-
-        [HttpGet]
-        [Route("/api/GetByName")]
-        public async Task<IActionResult> GetByName(string expert, string client)
-        {
-            try
-            {
-                if (string.IsNullOrEmpty(expert) || string.IsNullOrEmpty(client))
-                    return BadRequest("Please provide either expert or client");
-
-                return this.Ok(await this.callService.GetPriceByName(expert, client));
-            }
-            catch(Exception ex)
-            {
-                this.logger.LogError($"Error in GetByName :- {ex} for expert { expert } and client {client}");
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error while processing data!");
-            }
-        }
     }
 }

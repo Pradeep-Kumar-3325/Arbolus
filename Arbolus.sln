@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Arbolus.Service", "Arbolus.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Arbolus.Data", "Arbolus.Data\Arbolus.Data.csproj", "{E5DCCAE8-6634-4756-9FCD-896EC5BA4B4B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arbolus.Service.Test", "Arbolus.Service.Test\Arbolus.Service.Test.csproj", "{37EA5BDF-F81B-4DA3-9A49-D58482A883A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Arbolus.Service.Test", "Arbolus.Service.Test\Arbolus.Service.Test.csproj", "{37EA5BDF-F81B-4DA3-9A49-D58482A883A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arbolus.API.Test", "Arbolus.API.Test\Arbolus.API.Test.csproj", "{5C9A6098-3482-451E-9674-31070F742CEF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{37EA5BDF-F81B-4DA3-9A49-D58482A883A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37EA5BDF-F81B-4DA3-9A49-D58482A883A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37EA5BDF-F81B-4DA3-9A49-D58482A883A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C9A6098-3482-451E-9674-31070F742CEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C9A6098-3482-451E-9674-31070F742CEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C9A6098-3482-451E-9674-31070F742CEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C9A6098-3482-451E-9674-31070F742CEF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

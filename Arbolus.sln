@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32510.428
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arbolus.API", "Arbolus.API\Arbolus.API.csproj", "{AE227EC3-9B60-4829-A3D9-91154F85DACC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Arbolus.API", "Arbolus.API\Arbolus.API.csproj", "{AE227EC3-9B60-4829-A3D9-91154F85DACC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arbolus.Model", "Arbolus.Model\Arbolus.Model.csproj", "{26CC65EE-EA60-430D-A78D-05BDA4521934}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Arbolus.Model", "Arbolus.Model\Arbolus.Model.csproj", "{26CC65EE-EA60-430D-A78D-05BDA4521934}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arbolus.Service", "Arbolus.Service\Arbolus.Service.csproj", "{43342580-5FAA-471C-AD2F-A3C2224E352B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Arbolus.Service", "Arbolus.Service\Arbolus.Service.csproj", "{43342580-5FAA-471C-AD2F-A3C2224E352B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arbolus.Data", "Arbolus.Data\Arbolus.Data.csproj", "{E5DCCAE8-6634-4756-9FCD-896EC5BA4B4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Arbolus.Data", "Arbolus.Data\Arbolus.Data.csproj", "{E5DCCAE8-6634-4756-9FCD-896EC5BA4B4B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arbolus.Service.Test", "Arbolus.Service.Test\Arbolus.Service.Test.csproj", "{37EA5BDF-F81B-4DA3-9A49-D58482A883A2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{E5DCCAE8-6634-4756-9FCD-896EC5BA4B4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E5DCCAE8-6634-4756-9FCD-896EC5BA4B4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E5DCCAE8-6634-4756-9FCD-896EC5BA4B4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37EA5BDF-F81B-4DA3-9A49-D58482A883A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37EA5BDF-F81B-4DA3-9A49-D58482A883A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37EA5BDF-F81B-4DA3-9A49-D58482A883A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37EA5BDF-F81B-4DA3-9A49-D58482A883A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -131,8 +131,14 @@ namespace Arbolus.Service
         public async Task GetData()
         {
             this.experts = await this.expertDetails.Get("Expert");
+            if (this.experts == null)
+                throw new Exception("Expert cannot be null!");
             this.clients = await this.clientDetails.Get("Client");
+            if (this.clients == null)
+                throw new Exception("Client cannot be null!");
             this.rates = await this.rateData.Get();
+            if (this.rates == null)
+                throw new Exception("Rate cannot be null!");
         }
     }
 }

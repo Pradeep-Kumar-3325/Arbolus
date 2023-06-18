@@ -12,6 +12,6 @@ namespace Arbolus.Model
 
         public decimal Price { get; set; }
 
-        public decimal Currency { get; set; }
+        public string Currency { get; set; }
     }
 }

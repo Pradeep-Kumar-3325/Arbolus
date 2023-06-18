@@ -19,18 +19,24 @@ namespace Arbolus.Service.Concrete
             this.configuration = configuration;
         }
 
-        public override decimal GetPrice(int duration, decimal rate)
+        public override decimal GetPrice(int duration, decimal rate, bool discountApplicable = true)
         {
             try
             {
                 duration = base.GracePeriod(duration);
                 decimal price = (rate / 60) * duration;
-                var percentage = configuration["Discount:FollowUp"];
-                if (string.IsNullOrEmpty(percentage))
-                    logger.LogInformation($"Configuration of FollowUp is missing");
-                decimal percent = Convert.ToDecimal(percentage);
-                var finalPrice = rate * (percent / 100);
-                return finalPrice;
+                if (discountApplicable)
+                {
+                    
+                    var percentage = configuration["Discount:FollowUp"];
+                    if (string.IsNullOrEmpty(percentage))
+                        logger.LogInformation($"Configuration of FollowUp is missing");
+                    decimal percent = Convert.ToDecimal(percentage);
+                    var finalPrice = rate * (percent / 100);
+                    return finalPrice;
+                }
+                else
+                    return price;
             }
             catch(Exception ex)
             {

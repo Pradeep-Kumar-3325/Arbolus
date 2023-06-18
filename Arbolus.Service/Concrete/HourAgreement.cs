@@ -23,18 +23,20 @@ namespace Arbolus.Service.Concrete
             this.configuration = configuration;
         }
 
-        public override decimal GetPrice(int duration, decimal rate)
+        public override decimal GetPrice(int duration, decimal rate, bool discountApplicable = true)
         {
             try
             {
                 duration = base.GracePeriod(duration);
-                var Range = configuration["Discount:HourAgreement"];
-                if (string.IsNullOrEmpty(Range))
-                    logger.LogInformation($"Configuration of HourAgreement is missing");
-                var hourAgreement = JsonConvert.DeserializeObject<HourAgreementRange>(Range);
+                //var Range = configuration.GetSection("Discount").GetSection("HourAgreement");
+                HourAgreementRange hourAgreement = new HourAgreementRange();
+                hourAgreement.MinMinute = Convert.ToInt32(configuration["Discount:HourAgreement:MinMinute"]);
+                hourAgreement.MaxMinute = Convert.ToInt32(configuration["Discount:HourAgreement:MaxMinute"]);
+                hourAgreement.ChargedMinute = Convert.ToInt32(configuration["Discount:HourAgreement:ChargedMinute"]);
+               
                 decimal price = (rate / 60) * duration;
 
-                if (hourAgreement.MinMinute >= duration && hourAgreement.MaxMinute <= duration)
+                if (hourAgreement.MinMinute <= duration && hourAgreement.MaxMinute >= duration)
                 {
                     price = (rate / 60) * hourAgreement.ChargedMinute;
                 }

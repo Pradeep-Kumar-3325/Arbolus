@@ -38,6 +38,8 @@ namespace Arbolus.API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Arbolus.API", Version = "v1" });
             });
 
+            //services.Configure<HourAgreementRange>(Configuration.GetSection("MySettings"));
+
             services.AddScoped<IRateData, RateData>();
             services.AddScoped<IApiService, ApiService>();
             services.AddScoped<IData<ExpertData>, Data<ExpertData>>();

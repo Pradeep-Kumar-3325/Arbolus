@@ -28,8 +28,14 @@ namespace Arbolus.Service
 
         private readonly IConfiguration configuration;
 
+        private ExpertData experts;
+
+        private ClientData clients;
+
+        private Rate rates;
+
         // D :- Dependency Inversion  of SOLID
-        public CallService(ILogger<CallService> logger, IRateData rateData, 
+        public CallService(ILogger<CallService> logger, IRateData rateData,
             IData<ExpertData> expertDetails, IData<ClientData> clientDetails, IConfiguration configuration)
         {
             this.logger = logger;
@@ -45,52 +51,54 @@ namespace Arbolus.Service
             {
                 await GetData();
                 List<CallPriceDetails> callPriceDetails = new List<CallPriceDetails>();
+                Discount discount = null;
+                DiscountCreator discountCreator = new DiscountCreator(this.logger, this.configuration);
 
-                foreach (Expert expert in Data<ExpertData>.data.Experts)
+                foreach (Expert expert in this.experts.Experts)
                 {
-                    // We can use Parallel for or Parallel Foreach with threadsafe datastructure like concurrency collection to improve preformance 
+                    /* DUE TO TIME CRUNCH I DID NOT USE PARALLEL LIBRARY
+                     * We can use Parallel for or Parallel Foreach with threadsafe 
+                     * datastructure like concurrency collection to improve preformance 
+                     */
+                    Dictionary<string, int> expertClients = new Dictionary<string, int>();
                     foreach (Call call in expert.Calls)
                     {
                         var destionationCurrency = (Model.Enums.CurrencyEnum)Enum.Parse(typeof(Model.Enums.CurrencyEnum), expert.currency);
-                        var rate = Currency.Convert(Model.Enums.CurrencyEnum.USD, destionationCurrency, expert.hourlyRate);
-                        var client = Data<ClientData>.data.Clients.Where(x => x.Name.ToLower() == call.client.ToLower()).FirstOrDefault();
+                        var rate = Currency.Convert(Model.Enums.CurrencyEnum.USD, destionationCurrency, expert.hourlyRate, this.rates);
+                        var client = this.clients.Clients.Where(x => x.Name.ToLower() == call.client.ToLower()).FirstOrDefault();
                         decimal price = 0m;
 
                         if (client != null)
                         {
                             if (client.Discounts != null)
                             {
-                                /* We can use Parallel for or Parallel Foreach with 
+                                /* DUE TO TIME CRUNCH I DID NOT USE PARALLEL LIBRARY
+                                 * We can use Parallel for or Parallel Foreach with 
                                  * threadsafe datastructure like concurrency collection to improve preformance 
                                 */
-                                foreach(var clientDiscount in client.Discounts)
+                                foreach (var clientDiscount in client.Discounts)
                                 {
-                                    Discount discount = null;
-                                    // O  :- Implement open closed principle of SOLID
-                                    switch (clientDiscount)
+                                    /* O  :- Implement open closed principle of SOLID : 
+                                     * Dont need to change untill the below lines has bugs
+                                     * For new discount, can extend discount class by creating new drive class
+                                     * and update discountcreator
+                                     */
+                                    if (!discountCreator.Discounts.TryGetValue(clientDiscount.Trim().Replace(" ", "").ToUpper(), out discount))
                                     {
-                                        case "FollowUp":
-                                            discount = new FollowUp(logger, configuration);
-                                            price = discount.GetPrice(call.Duration, rate);
-                                            break;
-                                        case "1 hour agreement":
-                                            discount = new HourAgreement(logger, configuration);
-                                            price = discount.GetPrice(call.Duration, rate);
-                                            break;
-                                        default:
-                                            price = GetDefaultPrice(call.Duration, rate);
-                                            break;
+                                        discount = discountCreator.Discounts["DEFAULT"];
                                     }
+
+                                    price += discount.GetPrice(call.Duration, rate, expertClients.ContainsKey(call.client));
                                 }
                             }
                             else
                             {
-                                price = GetDefaultPrice(call.Duration, rate);
+                                price += discountCreator.Discounts["DEFAULT"].GetPrice(call.Duration, rate, true);
                             }
                         }
                         else
                         {
-                            price = GetDefaultPrice(call.Duration, rate);
+                            price += discountCreator.Discounts["DEFAULT"].GetPrice(call.Duration, rate, true);
                         }
 
                         callPriceDetails.Add(
@@ -99,9 +107,15 @@ namespace Arbolus.Service
                                 Expert = expert.Name,
                                 Client = call.client,
                                 Duration = call.Duration,
-                                Price = price
+                                Price = Math.Round(price, 2),
+                                Currency = expert.currency
                             }
                             );
+
+                        if (!expertClients.ContainsKey(call.client))
+                            expertClients.Add(call.client, 1);
+                        else
+                            expertClients[call.client]++;
                     }
                 }
 
@@ -116,15 +130,9 @@ namespace Arbolus.Service
 
         public async Task GetData()
         {
-            await this.expertDetails.Get("Expert");
-            await this.clientDetails.Get("Client");
-            await this.rateData.Get();
-        }
-
-        public decimal GetDefaultPrice(int duration, decimal rate)
-        {
-            Discount discount = new Discount(this.logger, this.configuration);
-            return discount.GetPrice(duration, rate);
+            this.experts = await this.expertDetails.Get("Expert");
+            this.clients = await this.clientDetails.Get("Client");
+            this.rates = await this.rateData.Get();
         }
     }
 }

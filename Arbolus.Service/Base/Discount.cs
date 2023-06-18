@@ -38,7 +38,7 @@ namespace Arbolus.Service.Base
             }
         }
 
-        public virtual decimal GetPrice(int duration, decimal rate)
+        public virtual decimal GetPrice(int duration, decimal rate, bool discountApplicable = true)
         {
             duration = GracePeriod(duration);
             decimal price = (rate / 60) * duration;

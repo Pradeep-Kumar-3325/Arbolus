@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 
 namespace Arbolus.Service
 {
+    // S :- Single Responsibility of SOLID
     public class CallService : ICallService
     {
         private readonly ILogger logger;
@@ -27,7 +28,9 @@ namespace Arbolus.Service
 
         private readonly IConfiguration configuration;
 
-        public CallService(ILogger<CallService> logger, IRateData rateData, IData<ExpertData> expertDetails, IData<ClientData> clientDetails, IConfiguration configuration)
+        // D :- Dependency Inversion  of SOLID
+        public CallService(ILogger<CallService> logger, IRateData rateData, 
+            IData<ExpertData> expertDetails, IData<ClientData> clientDetails, IConfiguration configuration)
         {
             this.logger = logger;
             this.rateData = rateData;
@@ -63,6 +66,7 @@ namespace Arbolus.Service
                                 foreach(var clientDiscount in client.Discounts)
                                 {
                                     Discount discount = null;
+                                    // O  :- Implement open closed principle of SOLID
                                     switch (clientDiscount)
                                     {
                                         case "FollowUp":

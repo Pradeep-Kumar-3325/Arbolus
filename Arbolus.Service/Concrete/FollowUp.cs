@@ -5,6 +5,8 @@ using System;
 
 namespace Arbolus.Service.Concrete
 {
+    // S :- Single Responsibility of SOLID
+    // L :-  Liskov Substitution Principle  of SOLID
     public class FollowUp :Discount
     {
         private readonly ILogger logger;
